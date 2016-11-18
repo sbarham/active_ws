@@ -6,6 +6,10 @@ from std_msgs.msg import String
 pub = []
 counter = [0,0,0,0]
 
+bottle_count = 0
+total_count = 0
+counting_bottles = False
+
 def language_callback(data):
         global pub, counter
         print "In alma, just got: %s"%data.data
@@ -16,9 +20,12 @@ def language_callback(data):
 
 def vision_callback(data):
         global pub, counter
+
+        manage_bottle_count(data.data)
+
         print "In alma, just got: %s"%data.data
         rospy.sleep(5)
-        pub[2].publish("simulator, your turn")
+        #pub[2].publish("simulator, your turn")
         counter[1] += 1
 
 def simulator_callback(data):
@@ -35,6 +42,27 @@ def action_callback(data):
         rospy.sleep(5)
         pub[0].publish("language, we're done")
         counter[3] += 1
+
+def manage_bottle_count(text):
+    if counting_bottles == False:
+        if text == "yes":
+            counting_bottles = True
+    else:
+        if text == "yes":
+                bottle_count++
+                total_count++
+        if text == "no":
+                total_count++
+        if total_count >= 10:
+                counting_bottles = False
+                if bottle_count > 6:
+                  pub[0].publish("bottle confirmed")
+                else:
+                  pub[0].publish("bottle disconfirmed")
+                bottle_count = 0
+                total_count = 0
+                
+                 
   
 def main():
         global pub
