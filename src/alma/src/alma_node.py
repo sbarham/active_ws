@@ -44,15 +44,17 @@ def action_callback(data):
         counter[3] += 1
 
 def manage_bottle_count(text):
+    global counting_bottles,bottle_count,total_count
     if counting_bottles == False:
         if text == "yes":
             counting_bottles = True
+            pub[1].publish("do you see a bottle?")
     else:
         if text == "yes":
-                bottle_count++
-                total_count++
+                bottle_count+=1
+                total_count+=1
         if text == "no":
-                total_count++
+                total_count+=1
         if total_count >= 10:
                 counting_bottles = False
                 if bottle_count > 6:
@@ -61,6 +63,8 @@ def manage_bottle_count(text):
                   pub[0].publish("bottle disconfirmed")
                 bottle_count = 0
                 total_count = 0
+        else:
+                pub[1].publish("do you see a bottle?")
                 
                  
   
