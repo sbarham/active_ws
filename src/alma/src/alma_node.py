@@ -32,7 +32,7 @@ def simulator_callback(data):
         global pub, counter
         print "In alma, just got: %s"%data.data
         rospy.sleep(5)
-        pub[3].publish("action, your turn")
+        pub[3].publish("ok action, move a bit")
         counter[2] += 1
 
 
@@ -40,7 +40,7 @@ def action_callback(data):
         global pub, counter
         print "In alma, just got: %s"%data.data
         rospy.sleep(5)
-        pub[0].publish("language, we're done")
+        pub[1].publish("ok vision, do you see a bottle?")
         counter[3] += 1
 
 def manage_bottle_count(text):
@@ -48,7 +48,7 @@ def manage_bottle_count(text):
     if counting_bottles == False:
         if text == "yes":
             counting_bottles = True
-            pub[1].publish("do you see a bottle?")
+            pub[2].publish("Let's check to see if there's a bottle.")
     else:
         if text == "yes":
                 bottle_count+=1
@@ -64,7 +64,7 @@ def manage_bottle_count(text):
                 bottle_count = 0
                 total_count = 0
         else:
-                pub[1].publish("do you see a bottle?")
+                pub[2].publish("What do I do next?")
                 
                  
   

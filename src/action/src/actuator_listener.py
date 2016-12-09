@@ -10,9 +10,9 @@ def callback(data):
 #	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
         print "In actuator listener, just got: %s"%data.data
         rospy.sleep(1)
-        pub.publish("hello alma, this is action")
+        pub.publish("ok, finished moving")
         rospy.sleep(1)
-        print "exiting action..."
+        #print "exiting action..."
         exit(1)
   
 def listener():

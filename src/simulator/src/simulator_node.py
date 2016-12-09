@@ -9,9 +9,9 @@ def callback(data):
         global pub
         print "In simulator, just got: %s"%data.data
         rospy.sleep(1)
-        pub.publish("hello alma, this is simulator")
+        pub.publish("move a bit and take a picture")
         rospy.sleep(1)
-        print "simulator exiting..."
+        #print "simulator exiting..."
         exit(1)
   
 def main():
